@@ -33,25 +33,11 @@ my_cart = []
 products = ['Premio 3XD HeadSet', 'Samsung EarPods 2s', 
             'Samsung Galaxy A05', 'Samsung Galaxy A16s', 'Hauwei Y16', 'Hisense M19','Mobicel EGO' ]
 
-random.shuffle(products)
+prices = [289, 345, 2300, 3200, 4300, 3900, 1300]
 
-
-for product in products:
-   
-   print(f"\nProduct available: {product}")
-
-   prompt = input("Do you want this product: ")
-
-   if prompt.lower() == "Yes".lower():
-      my_cart.append(product)
-      
-   elif prompt.lower() == "skip".lower():
-      continue
-   
-   elif prompt.lower() == "No".lower():
-      continue
-   else:
-      print("INVALID CHOICE")
+for i in range(len(prices)):
+     print(products[i]:prices[j])       
+            
 
     
     
