@@ -42,7 +42,7 @@ User Account:
     2.5 Must have at least one upper case and one lower case characters
 """
 
-print(" "*57, "PICKALOT")
+print(" "*57, "PICKALOT.COM")
 print(" "*40,"Welcome to Pickalot, where you find and pick all you need!")
 
 def check_account_exist():
@@ -135,7 +135,7 @@ def create_password():
 def open_account():
     global defined_username, defined_password, password_lyst, username_lyst, item , products, cart
 
-    print(" " * 50, "PICKALOT PTY")
+    print(" " * 50, "PICKALOT.COM")
 
     open_username = input(f"Provide username: ")
     open_password = input(f"Enter Password: ")
@@ -164,24 +164,28 @@ def open_account():
 ##################################   SEARCH ENGINE     #################################################################
 def search_engine():
      global item, Alpha, Beta, products, number
-     print(" " * 50, "PICKALOT PTY")
+     print(" " * 50, "PICKALOT.COM")
      item = input(f"Search any item: ")
      search_lyst = list(item)
-     search_product1 = list(products[0])
+     search_products1 = list(products[0])
      search_products2 = list(products[1])
-     cart.append(item)
-     print(cart)
-     if any(i in search_lyst for i in search_product1 ):
-         print(f"{" "*10}Search results:\n1. {products[0]}\n2. {products[1]}\nChoose one product")
+     if any(i in search_lyst for i in search_products1 ) and any(j in search_lyst for j in search_products2):
+         print(f"{" " * 10}Search results:\n1. {products[0]}\n2. {products[1]}")
          number = int(input("Enter choice:"))
-         if any(i in cart for i in products):
-            if number == 1:
-                print(apples())
-            elif number == 2:
-                print(bananas())
-         elif any(i not in cart for i in products):
-            search_engine()
-     elif any(i not in search_lyst for i in search_product1 ) and any(j not in search_lyst for j in search_products2) :
+         while True:
+             if number == 1:
+                 apples()
+                 exit()
+             elif number == 2:
+                 bananas()
+                 exit()
+     elif any(i in search_lyst for i in search_products1 ):
+         print(f"{" "*10}Search results:\n1. {products[0]}")
+         apples()
+     elif any(j in search_lyst for j in search_products2):
+         print(f"{" " * 10}Search results:\n1. {products[1]}")
+         bananas()
+     elif any(i not in search_lyst for i in search_products1 ) and any(j not in search_lyst for j in search_products2) :
          print(f"{" "*10}Search results: No result")
          search_engine()
 
@@ -190,87 +194,6 @@ def search_engine():
 
 
 #########################################    ITERATION FUNCTIONS ####################################################
-
-def add_to_cart():
-    global no_of_apples, no_of_bananas
-    global tot_amount_apples, tot_amount_bananas
-    global address
-    global days
-    global current_time
-    global day
-
-    another_item = input("Search again:")
-
-    if another_item == "Apples":
-        print("Price of 1 apple is R3")
-        add_no_of_apples = int(input("How many apples?"))
-        no_of_apples += add_no_of_apples
-        tot_amount_apples = int(no_of_apples * price_apple * universal_tariff)
-    elif another_item == "Bananas":
-        print("Price of 1 banana is R2")
-        add_no_of_bananas = int(input("How many bananas?"))
-        no_of_bananas += add_no_of_bananas
-        tot_amount_bananas = int(no_of_bananas * price_banana * universal_tariff)
-    elif another_item not in products:
-        print("Product not found! Please re-enter item")
-        add_to_cart()
-
-    print("Current total is ZAR", tot_amount_apples + tot_amount_bananas)
-
-    check_procedure = input("Do you still wish to add more products (Yes / No)?")
-
-    if check_procedure == "Yes":
-     add_to_cart()
-
-    if check_procedure == "No":
-        address = input("Please write street name to address for delivery:")
-        print(delivery_time())
-        print(time_of_day())
-        print("Great! Your checkout price is ZAR",
-              tot_amount_apples + tot_amount_bananas,
-              "\nVisit banking app to confirm EFT!\nProduct shall be delivered at",
-              address, "in", days,"days\nThanks and have a good"+ day +"!")
-    exit()
-
-
-#####################################      END  OF ITERATION FUNCTIONS   ###############################################
-
-################################        FUNCTIONS FOR PRODUCTS       ###################################################
-def apples():
-    global no_of_apples,\
-        tot_amount_apples,\
-        address, \
-        days, \
-        day,\
-        current_time, \
-        item, cart
-    print(" " * 57, "PICKALOT")
-    print("Price of 1 apple is R3")
-    if item == "Apples":
-        no_of_apples = int(input("How many apples?"))
-        tot_amount_apples = int(no_of_apples * price_apple * universal_tariff)
-
-        print("Price for", no_of_apples, "apples is ZAR", tot_amount_apples)
-
-
-        check_procedure_apple = input("Do you wish to add more products (Yes / No)?")
-        if check_procedure_apple.upper() == "YES":
-            print(add_to_cart())
-
-        elif check_procedure_apple.upper() == "NO":
-                    address = input("Please write street name to address for delivery:")
-                    delivery_time()
-                    time_of_day()
-                    print("Great! Your checkout price is ZAR",
-                    tot_amount_apples + tot_amount_bananas,
-                    "\nVisit banking app to confirm EFT!\nProduct shall be delivered at",address, "in", days," days\nThanks and have a good"+ day +"!")
-                    exit()
-        while check_procedure_apple.upper() != "YES" or check_procedure_apple.upper() != "NO":
-            print(f" {" "*20}Invalid input. Please try again!")
-            print(apples())
-            break
-
-
 def delivery_time():
     global days
     if address in Places_1:
@@ -287,6 +210,94 @@ def time_of_day():
     else:
         day = "night"
 
+
+def add_to_cart():
+    global no_of_apples, no_of_bananas
+    global tot_amount_apples, tot_amount_bananas
+    global address
+    global days
+    global current_time
+    global day
+    print(" " * 57, "PICKALOT.COM")
+    another_item = input("Search again:")
+    try:
+        if another_item == "Apples":
+            print("Price of 1 apple is R3")
+            add_no_of_apples = int(input("How many apples?"))
+            no_of_apples += add_no_of_apples
+            tot_amount_apples = int(no_of_apples * price_apple * universal_tariff)
+        elif another_item == "Bananas":
+            print("Price of 1 banana is R2")
+            add_no_of_bananas = int(input("How many bananas?"))
+            no_of_bananas += add_no_of_bananas
+            tot_amount_bananas = int(no_of_bananas * price_banana * universal_tariff)
+        elif any(i not in another_item for i in products):
+            print("Product not found! Please re-enter item")
+            add_to_cart()
+    except:
+        print("Invalid input. Please try again!")
+        add_to_cart()
+
+    print("Current total is ZAR", tot_amount_apples + tot_amount_bananas)
+    check_procedure = input("Do you still wish to add more products (Yes / No)?")
+    if check_procedure == "Yes":
+     add_to_cart()
+    elif check_procedure.upper() == "NO":
+        address = input("Please write street name to address for delivery:")
+        delivery_time()
+        time_of_day()
+        if (address in Places_1) or (address in Places_2):
+            print("Great! Your checkout price is ZAR",tot_amount_apples + tot_amount_bananas,"\nVisit banking app to confirm EFT!\nProduct shall be delivered at",address, "in", days," days\nThanks and have a good"+ day +"!")
+            exit()
+        elif (address not in Places_1) or (address not in Places_2):
+            print("Unknown address. Please restart order of item!")
+            add_to_cart()
+    while check_procedure.upper() != "YES" or check_procedure.upper() != "NO":
+        print(f" {" "*20}Invalid input. Please try again!")
+        add_to_cart()
+        break
+    exit()
+
+
+#####################################      END  OF ITERATION FUNCTIONS   ###############################################
+
+################################        FUNCTIONS FOR PRODUCTS       ###################################################
+def apples():
+    global no_of_apples,\
+        tot_amount_apples,\
+        address, \
+        days, \
+        day,\
+        current_time, \
+        item, cart
+    print(" " * 57, "PICKALOT.COM")
+    print("Price of 1 apple is R3")
+    try:
+        no_of_apples = int(input("How many apples?"))
+        tot_amount_apples = int(no_of_apples * price_apple * universal_tariff)
+        print("Price for", no_of_apples, "apples is ZAR", tot_amount_apples)
+    except:
+        print("Invalid input. Try again")
+        apples()
+
+    check_procedure_apple = input("Do you wish to add more products (Yes / No)?")
+    if check_procedure_apple.upper() == "YES":
+        print(add_to_cart())
+    elif check_procedure_apple.upper() == "NO":
+        address = input("Please write street name to address for delivery:")
+        delivery_time()
+        time_of_day()
+        if (address in Places_1) or (address in Places_2):
+            print("Great! Your checkout price is ZAR",tot_amount_apples + tot_amount_bananas,"\nVisit banking app to confirm EFT!\nProduct shall be delivered at",address, "in", days," days\nThanks and have a good"+ day +"!")
+            exit()
+        elif (address not in Places_1) or (address not in Places_2):
+            print("Unknown address. Please retart order of item!")
+            apples()
+    while check_procedure_apple.upper() != "YES" or check_procedure_apple.upper() != "NO":
+        print(f" {" "*20}Invalid input. Please try again!")
+        print(apples())
+        break
+
 def bananas():
     global no_of_bananas
     global  tot_amount_bananas
@@ -296,43 +307,35 @@ def bananas():
     global day
     global item
 
-    print(" " * 57, "PICKALOT")
+    print(" " * 57, "PICKALOT.COM")
     print("Price of 1 banana is R2")
-    if item == products[1]:
+    try:
         no_of_bananas = int(input("How many bananas?"))
         tot_amount_bananas = int(no_of_bananas * price_banana * universal_tariff)
         print("Price for", no_of_bananas, "bananas is ZAR", tot_amount_bananas)
+    except:
+        print("Invalid input.Please try again!")
+        bananas()
 
-        check_procedure_banana = input("Do you wish to add more products (Yes / No)?")
-        if check_procedure_banana == "Yes":
-         add_to_cart()
-        elif check_procedure_banana == "No":
-            address = input("Please write street name to address for delivery:")
-            delivery_time()
-            time_of_day()
-            print("Great! Your checkout price is ZAR",
-                  tot_amount_apples + tot_amount_bananas,
-                  "\nVisit banking app to confirm EFT!\nProduct shall be delivered at",
-                  address, "in", days ,"days\nThanks and have a good"+ day +"!")
-        while check_procedure_banana.upper() != "YES" or check_procedure_banana.upper() != "NO":
-            print(f" {" "*20}Invalid input. Please try again!")
-            print(bananas())
-            break
+    check_procedure_banana = input("Do you wish to add more products (Yes / No)?")
+    if check_procedure_banana == "Yes":
+        add_to_cart()
+    elif check_procedure_banana.upper() == "NO":
+        address = input("Please write street name to address for delivery:")
+        delivery_time()
+        time_of_day()
+        if (address in Places_1) or (address in Places_2):
+            print("Great! Your checkout price is ZAR",tot_amount_apples + tot_amount_bananas,"\nVisit banking app to confirm EFT!\nProduct shall be delivered at",address, "in", days," days\nThanks and have a good"+ day +"!")
+            exit()
+        elif (address not in Places_1) or (address not in Places_2):
+            print("Unknown address. Please restart order of item!")
+            bananas()
+    while check_procedure_banana.upper() != "YES" or check_procedure_banana.upper() != "NO":
+        print(f" {" "*20}Invalid input. Please try again!")
+        print(bananas())
+        break
 
 #############################    END OF PRODUCT DUNCTIONS  #############################################################
 
-
-################################  LOOP FOR DETERMINING ACCESS TO PRODUCTS #############################################
-
-while item in products:
-    if item == "Apples":
-        print(apples())
-    elif item == "Bananas":
-        print(bananas())
-    elif any(a not in cart for a in products):
-        print("Entered peoduct unavailable, Please try again")
-
-
-##########################################     END OF LOOP            #################################################
 
 check_account_exist() # To start program
